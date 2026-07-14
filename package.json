@@ -1,0 +1,21 @@
+{
+  "name": "@work4lazy/skills",
+  "version": "1.0.0",
+  "description": "Personal opencode AI skills collection",
+  "type": "module",
+  "bin": {
+    "oc-skills": "bin/cli.js"
+  },
+  "files": [
+    "skills",
+    "bin"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "opencode",
+    "skills",
+    "ai"
+  ]
+}
