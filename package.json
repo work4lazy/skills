@@ -1,21 +1,10 @@
 {
   "name": "@work4lazy/skills",
   "version": "1.0.0",
-  "description": "Personal AI skills collection for .agents/skills/ compatible tools",
-  "type": "module",
-  "bin": {
-    "oc-skills": "bin/cli.js"
-  },
-  "files": [
-    "skills",
-    "bin"
-  ],
-  "publishConfig": {
-    "access": "public"
-  },
+  "description": "Personal AI skills collection — install via npx skills add work4lazy/skills",
   "keywords": [
-    "opencode",
     "skills",
-    "ai"
+    "ai",
+    "agents"
   ]
 }
