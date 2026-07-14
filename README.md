@@ -1,6 +1,6 @@
 # @work4lazy/skills
 
-work4lazy 的个人 [opencode](https://opencode.ai) AI 技能集合。
+work4lazy 的个人 AI 技能集合，兼容支持 `.agents/skills/` 的 AI 编码工具（如 opencode、Claude Code 等）。
 
 ## 安装
 
@@ -17,8 +17,8 @@ npx github:work4lazy/skills deploy -l
 ### deploy — 安装技能
 
 ```bash
-npx github:work4lazy/skills deploy -g          # 安装到 ~/.config/opencode/skills/
-npx github:work4lazy/skills deploy -l          # 安装到 ./.opencode/skills/
+npx github:work4lazy/skills deploy -g          # 安装到 ~/.agents/skills/
+npx github:work4lazy/skills deploy -l          # 安装到 ./.agents/skills/
 npx github:work4lazy/skills deploy -g -s       # 符号链接模式，源更新后自动同步
 npx github:work4lazy/skills deploy -g -d       # 预览模式，查看要安装的技能
 ```
@@ -55,9 +55,9 @@ npx github:work4lazy/skills remove -l          # 卸载项目所有技能
 
 ## 原理
 
-opencode 自动从以下路径加载技能：
+支持 `.agents/skills/` 目录的 AI 编码工具会自动从以下路径加载技能：
 
-- 全局: `~/.config/opencode/skills/<name>/SKILL.md`
-- 项目: `.opencode/skills/<name>/SKILL.md`
+- 全局: `~/.agents/skills/<name>/SKILL.md`
+- 项目: `.agents/skills/<name>/SKILL.md`
 
-`deploy` 命令将本包中的 `skills/<name>/SKILL.md` 复制到对应路径，opencode 即可自动发现和使用。
+`deploy` 命令将本包中的 `skills/<name>/SKILL.md` 复制到对应路径，工具即可自动发现和使用。

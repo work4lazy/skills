@@ -7,8 +7,8 @@ import { homedir } from 'os';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const SKILLS_SOURCE = join(__dirname, '..', 'skills');
-const GLOBAL_TARGET = join(homedir(), '.config', 'opencode', 'skills');
-const LOCAL_TARGET = join(process.cwd(), '.opencode', 'skills');
+const GLOBAL_TARGET = join(homedir(), '.agents', 'skills');
+const LOCAL_TARGET = join(process.cwd(), '.agents', 'skills');
 
 function getSourceSkills() {
   if (!existsSync(SKILLS_SOURCE)) {
@@ -123,8 +123,8 @@ function help() {
   help     显示帮助
 
 选项:
-  -g, --global     全局目录 (~/.config/opencode/skills/)
-  -l, --local      项目目录 (.opencode/skills/)
+  -g, --global     全局目录 (~/.agents/skills/)
+  -l, --local      项目目录 (.agents/skills/)
   -s, --symlink    符号链接模式 (仅 deploy)
   -d, --dry-run    预览 (仅 deploy)
   -n, --name <名>  指定技能名 (仅 remove)
