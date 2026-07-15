@@ -1,6 +1,8 @@
 name: Sync External Skills
 
 on:
+  schedule:
+    - cron: '0 18 * * *'    # UTC 18:00 = 北京时间 02:00
   workflow_dispatch:
     inputs:
       source:
