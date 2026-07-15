@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    {
+      "name": "personal",
+      "source": "./",
+      "skills": [
+        "./skills/personal/python-preferences",
+        "./skills/personal/to-arch"
+      ]
+    },
+    {
+      "name": "external",
+      "source": "./",
+      "skills": [
+        "./skills/external/skill-creator"
+      ]
+    }
+  ]
+}
