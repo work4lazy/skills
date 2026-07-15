@@ -1,9 +1,9 @@
-name: Sync External Skills
+name: Sync Personal Skills
 
 on:
-  schedule:
-    - cron: '0 18 * * *'
-  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: [skills/personal/**]
 
 jobs:
   sync:
@@ -13,14 +13,14 @@ jobs:
         with:
           token: ${{ secrets.PAT_TOKEN }}
 
-      - name: Sync external skills
-        run: python3 scripts/sync_external_skills.py
+      - name: Sync personal skills
+        run: python3 scripts/sync_personal_skills.py
 
       - name: Commit & push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add skills/ .claude-plugin/marketplace.json
+          git add .claude-plugin/marketplace.json
           git diff --cached --quiet && echo "No changes" && exit 0
-          git commit -m "chore: sync external skills [skip ci]"
+          git commit -m "chore: sync personal skills [skip ci]"
           git push
