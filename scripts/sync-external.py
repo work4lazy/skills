@@ -8,6 +8,7 @@ with open("external-sources.json") as f:
 
 for source in config["sources"]:
     repo = source["repo"]
+    org = repo.split("/")[0]
     skills = source["skills"]
     clone_dir = f"/tmp/source-{repo.replace('/', '-')}"
     subprocess.run(
@@ -17,7 +18,7 @@ for source in config["sources"]:
     )
     for skill in skills:
         src = os.path.join(clone_dir, "skills", skill)
-        dst = os.path.join("skills", "external", skill)
+        dst = os.path.join("skills", org, skill)
         shutil.rmtree(dst, ignore_errors=True)
         shutil.copytree(src, dst)
         print(f"Synced {repo}/{skill}")
