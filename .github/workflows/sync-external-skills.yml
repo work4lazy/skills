@@ -5,14 +5,13 @@ on:
     - cron: '0 18 * * *'    # UTC 18:00 = 北京时间 02:00
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Sync external skills
         run: |
