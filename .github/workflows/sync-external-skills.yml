@@ -1,0 +1,93 @@
+name: Sync External Skills
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Specific source to sync (leave empty for all)'
+        required: false
+        default: ''
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync external skills
+        run: |
+          set -e
+          CONFIG_FILE="external-sources.json"
+          TARGET_DIR="skills/external"
+
+          if [ ! -f "$CONFIG_FILE" ]; then
+            echo "❌ $CONFIG_FILE not found"
+            exit 1
+          fi
+
+          SOURCES=$(jq -c '.sources[]' "$CONFIG_FILE")
+          if [ -z "$SOURCES" ]; then
+            echo "📭 No sources configured in $CONFIG_FILE"
+            exit 0
+          fi
+
+          mkdir -p "$TARGET_DIR"
+          TEMP_DIR=$(mktemp -d)
+
+          echo "$SOURCES" | while read -r source; do
+            REPO=$(echo "$source" | jq -r '.repo')
+            SKILLS=$(echo "$source" | jq -r '.skills | if type == "array" then .[] else . end')
+
+            # Only sync if no specific source filter or matches
+            if [ -n "${{ github.event.inputs.source }}" ] && [ "$REPO" != "${{ github.event.inputs.source }}" ]; then
+              echo "⏭️  Skipping $REPO (filtered)"
+              continue
+            fi
+
+            echo "🔽 Syncing $REPO ..."
+            REPO_DIR="$TEMP_DIR/$(echo "$REPO" | tr '/' '_')"
+            git clone --depth 1 "https://github.com/$REPO.git" "$REPO_DIR" 2>/dev/null
+
+            SOURCE_NAME=$(echo "$REPO" | tr '/' '-')
+            DEST="$TARGET_DIR/$SOURCE_NAME"
+            mkdir -p "$DEST"
+
+            if [ -d "$REPO_DIR/skills" ]; then
+              if [ "$SKILLS" = "*" ]; then
+                for skill_dir in "$REPO_DIR/skills"/*/; do
+                  skill_name=$(basename "$skill_dir")
+                  cp -r "$skill_dir" "$DEST/$skill_name"
+                  echo "  ✅ $skill_name"
+                done
+              else
+                echo "$SKILLS" | while read -r skill; do
+                  if [ -d "$REPO_DIR/skills/$skill" ]; then
+                    cp -r "$REPO_DIR/skills/$skill" "$DEST/$skill"
+                    echo "  ✅ $skill"
+                  else
+                    echo "  ⚠️  Skill not found: $skill"
+                  fi
+                done
+              fi
+            else
+              echo "  ⚠️  No skills/ directory in $REPO"
+            fi
+
+            rm -rf "$REPO_DIR"
+          done
+
+          rm -rf "$TEMP_DIR"
+          echo "🎉 Sync complete"
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add skills/external/
+          if git diff --cached --quiet; then
+            echo "📭 No changes to commit"
+          else
+            git commit -m "chore: sync external skills [skip ci]"
+            git push
+            echo "✅ Pushed changes"
+          fi

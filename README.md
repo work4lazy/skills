@@ -1,28 +1,45 @@
 # @work4lazy/skills
 
-work4lazy 的个人 AI 技能集合。
+work4lazy 的个人 AI 技能集合，由两部分组成：
+
+## 结构
+
+```
+skills/
+  personal/     ← 个人技能，手动维护
+    python-preferences/
+    to-arch/
+    ...
+  external/     ← 外部技能，GitHub Actions 自动同步（只读）
+    vercel-labs-agent-skills/
+    google-gemini-gemini-skills/
+    ...
+```
 
 ## 安装
 
-要求 [Node.js](https://nodejs.org) 18+。
+需要 [Node.js](https://nodejs.org) 18+。
 
 ```bash
-# 安装所有技能到全局（所有项目可用）
+# 安装所有技能到全局
 npx skills add work4lazy/skills -g
 
 # 安装到当前项目
 npx skills add work4lazy/skills
-
-# 只安装某个技能
-npx skills add work4lazy/skills --skill to-arch
-
-# 查看仓库中有哪些技能
-npx skills add work4lazy/skills --list
 ```
 
-`npx skills` 会自动检测环境中的 AI 工具（Claude Code、OpenCode、Cursor 等），将技能安装到对应的目录。
+## 管理外部技能
 
-## 包含的技能
+1. 编辑 `external-sources.json`，添加要同步的源
+2. 在 GitHub 仓库页面 → Actions → **Sync External Skills** → **Run workflow**
+
+或通过 GitHub CLI：
+
+```bash
+gh workflow run sync-external-skills.yml
+```
+
+## 包含的个人技能
 
 | 技能 | 说明 |
 |------|------|
@@ -31,4 +48,4 @@ npx skills add work4lazy/skills --list
 
 ## 开发
 
-在 `skills/` 下新建目录，放入 `SKILL.md` 即可新增技能。
+在 `skills/personal/` 下新建目录放入 `SKILL.md` 即可新增个人技能。
