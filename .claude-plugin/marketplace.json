@@ -14,6 +14,33 @@
       "skills": [
         "./skills/anthropics/skill-creator"
       ]
+    },
+    {
+      "name": "mattpocock/skills",
+      "source": "./",
+      "skills": [
+        "./skills/mattpocock/engineering/ask-matt",
+        "./skills/mattpocock/engineering/code-review",
+        "./skills/mattpocock/engineering/codebase-design",
+        "./skills/mattpocock/engineering/diagnosing-bugs",
+        "./skills/mattpocock/engineering/domain-modeling",
+        "./skills/mattpocock/engineering/grill-with-docs",
+        "./skills/mattpocock/engineering/implement",
+        "./skills/mattpocock/engineering/improve-codebase-architecture",
+        "./skills/mattpocock/engineering/prototype",
+        "./skills/mattpocock/engineering/research",
+        "./skills/mattpocock/engineering/resolving-merge-conflicts",
+        "./skills/mattpocock/engineering/setup-matt-pocock-skills",
+        "./skills/mattpocock/engineering/tdd",
+        "./skills/mattpocock/engineering/to-spec",
+        "./skills/mattpocock/engineering/to-tickets",
+        "./skills/mattpocock/engineering/triage",
+        "./skills/mattpocock/engineering/wayfinder",
+        "./skills/mattpocock/productivity/grill-me",
+        "./skills/mattpocock/productivity/grilling",
+        "./skills/mattpocock/productivity/handoff",
+        "./skills/mattpocock/productivity/teach"
+      ]
     }
   ]
 }
