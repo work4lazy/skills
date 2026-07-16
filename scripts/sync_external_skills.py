@@ -59,6 +59,10 @@ def update_marketplace(config):
             if plugin["name"] == repo:
                 plugin["skills"] = paths
                 break
+        else:
+            marketplace["plugins"].append(
+                {"name": repo, "source": "./", "skills": paths}
+            )
     save_json(MARKETPLACE, marketplace)
     print("Updated marketplace.json external groups")
 
