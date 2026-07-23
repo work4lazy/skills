@@ -2,7 +2,7 @@ name: Sync Personal Skills
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths: [skills/personal/**]
 
 jobs:

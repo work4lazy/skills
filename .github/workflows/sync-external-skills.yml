@@ -2,7 +2,7 @@ name: Sync External Skills
 
 on:
   push:
-    branches: [master]
+    branches: [main]
     paths: [external-sources.json]
   schedule:
     - cron: '0 18 * * *'
