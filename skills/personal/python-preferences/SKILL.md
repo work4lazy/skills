@@ -9,7 +9,7 @@ description: 当处理 Python 代码时使用 — 任何涉及 .py 文件或 pyt
 使用 `uv`管理 Python 项目。切勿手动编辑 `pyproject.toml`始终通过 `uv` 命令以保持 `uv.lock` 同步。如果不确定命令，请查阅 `uv --help`
 
 ## 目录布局
-当创建新项目或包时：使用 src 布局。将 `[tool.setuptools.packages.find]` 指向 `src`。始终通过 `uv run python -m pkg.module` 运行 — 不要使用文件路径方式，这会破坏包内导入。
+遵守`src-layout`规范。始终通过 `uv run python -m pkg.module` 运行，不要使用文件路径方式，这会破坏包内导入。
 
 ## 日志记录
 
